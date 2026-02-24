@@ -1,0 +1,13 @@
+.todo-list {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-card);
+  border: 0.0625rem solid var(--color-border);
+  overflow: hidden;
+}
+
+.todo-list__empty {
+  text-align: center;
+  padding-block: 2rem;
+  opacity: 0.6;
+  font-style: italic;
+}
