@@ -1,10 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import { EllipsisVertical, Copy, Trash2 } from "lucide-react";
 import "./TodoItem.css";
 
-export function TodoItem({ todo, onToggle, onEdit, onDelete }) {
+export function TodoItem({ todo, onToggle, onEdit, onDelete, onCopy }) {
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState(todo.text);
   const editInputRef = useRef(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     if (editing && editInputRef.current) {
@@ -33,6 +35,12 @@ export function TodoItem({ todo, onToggle, onEdit, onDelete }) {
       setEditText(todo.text);
       setEditing(false);
     }
+  }
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(todo.text);
+    onCopy?.(todo.text);
+    menuRef.current?.hidePopover();
   }
 
   return (
@@ -74,13 +82,35 @@ export function TodoItem({ todo, onToggle, onEdit, onDelete }) {
           {todo.text}
         </label>
       )}
+
+      {/* Kebab trigger — implicit anchor via popoverTarget */}
       <button
-        className="todo-item__delete"
-        onClick={() => onDelete(todo.id)}
-        aria-label={`Delete "${todo.text}"`}
+        className="todo-item__menu-trigger"
+        popoverTarget={`todo-menu-${todo.id}`}
+        aria-label={`Actions for "${todo.text}"`}
       >
-        ×
+        <EllipsisVertical size={16} aria-hidden="true" />
       </button>
+
+      {/* Menu popover */}
+      <div
+        id={`todo-menu-${todo.id}`}
+        ref={menuRef}
+        popover="auto"
+        className="todo-item__menu"
+      >
+        <button className="todo-item__menu-item" onClick={handleCopy}>
+          <Copy size={14} aria-hidden="true" />
+          Copy
+        </button>
+        <button
+          className="todo-item__menu-item todo-item__menu-item--delete"
+          onClick={() => onDelete(todo.id)}
+        >
+          <Trash2 size={14} aria-hidden="true" />
+          Delete
+        </button>
+      </div>
     </li>
   );
 }
