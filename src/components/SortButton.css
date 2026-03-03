@@ -1,0 +1,84 @@
+@property --gradient-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes spin-gradient {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+.sort-button-wrapper {
+  position: relative;
+  display: inline-flex;
+  border-radius: 0.5rem;
+}
+
+.sort-button-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -0.125rem;
+  border-radius: inherit;
+  z-index: -1;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    #e07a5f,
+    #f6c90e,
+    #81b29a,
+    #3d405b,
+    #e07a5f
+  );
+  animation: spin-gradient 4s linear infinite;
+}
+
+.sort-button-wrapper--disabled::before {
+  animation-play-state: paused;
+  opacity: 0.4;
+}
+
+.sort-button-wrapper--sorting::before {
+  animation-play-state: paused;
+  filter: saturate(0.4);
+}
+
+.sort-button {
+  position: relative;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 0.375rem;
+  background-color: var(--color-bg, #f4f1de);
+  color: var(--color-text, #3d405b);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.sort-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.sort-button:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--color-bg, #f4f1de) 92%, var(--color-text, #3d405b) 8%);
+}
+
+.sort-button-wrapper:not(.sort-button-wrapper--disabled):hover::before {
+  animation-duration: 1.5s;
+}
+
+.sort-button:focus-visible {
+  outline: none;
+}
+
+.sort-button-wrapper:focus-within {
+  outline: 0.125rem solid var(--color-text, #3d405b);
+  outline-offset: 0.25rem;
+}
+
+.sort-button-wrapper--sorting .sort-button {
+  opacity: 0.7;
+}

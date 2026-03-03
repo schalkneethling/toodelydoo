@@ -7,7 +7,7 @@ export function TodoList({ todos, onToggle, onEdit, onDelete }) {
   }
 
   return (
-    <ul className="todo-list">
+    <ul className="todo-list" aria-live="polite" aria-label="Todo list">
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

@@ -2,3 +2,42 @@
   max-inline-size: 40rem;
   margin-inline: auto;
 }
+
+.sort-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sort-actions__save {
+  padding-block: 0.3rem;
+  padding-inline: 0.75rem;
+  border: 0.0625rem solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.sort-actions__save:hover {
+  opacity: 0.85;
+}
+
+.sort-actions__undo {
+  padding-block: 0.3rem;
+  padding-inline: 0.75rem;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: inherit;
+  font-size: 0.875rem;
+  opacity: 0.7;
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+
+.sort-actions__undo:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

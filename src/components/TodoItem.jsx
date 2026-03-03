@@ -37,7 +37,7 @@ export function TodoItem({ todo, onToggle, onEdit, onDelete }) {
 
   return (
     <li className={`todo-item ${todo.completed ? "todo-item--completed" : ""}`}>
-      <span className="todo-item__checkbox-wrapper">
+      <label className="todo-item__checkbox-wrapper" htmlFor={`todo-${todo.id}`}>
         <input
           className="todo-item__checkbox"
           type="checkbox"
@@ -53,7 +53,7 @@ export function TodoItem({ todo, onToggle, onEdit, onDelete }) {
             </svg>
           )}
         </span>
-      </span>
+      </label>
       {editing ? (
         <input
           className="todo-item__edit"

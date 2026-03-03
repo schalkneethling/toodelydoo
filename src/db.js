@@ -1,3 +1,5 @@
+import { sortTodos } from './lib/sortTodos.js';
+
 const DB_NAME = "toodelydoo-db";
 const DB_VERSION = 1;
 const STORE_NAME = "todos";
@@ -24,11 +26,10 @@ export async function getAllTodos() {
   return new Promise((resolve, reject) => {
     const tx = db.transaction(STORE_NAME, "readonly");
     const store = tx.objectStore(STORE_NAME);
-    const index = store.index("createdAt");
-    const request = index.getAll();
+    const request = store.getAll();
 
     request.onsuccess = () => {
-      resolve(request.result.reverse());
+      resolve(sortTodos(request.result));
     };
     request.onerror = () => reject(request.error);
   });
@@ -86,6 +87,21 @@ export async function clearCompletedTodos() {
         cursor.continue();
       }
     };
+
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+export async function persistSortOrder(orderedTodos) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE_NAME, "readwrite");
+    const store = tx.objectStore(STORE_NAME);
+
+    for (const todo of orderedTodos) {
+      store.put(todo);
+    }
 
     tx.oncomplete = () => resolve();
     tx.onerror = () => reject(tx.error);

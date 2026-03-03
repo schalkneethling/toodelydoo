@@ -1,0 +1,87 @@
+/* Make .app an anchor for CSS Anchor Positioning */
+.app {
+  anchor-name: --app-anchor;
+}
+
+.toast {
+  /* Anchor Positioning: align with the top of .app */
+  position-anchor: --app-anchor;
+  top: anchor(--app-anchor top);
+  width: anchor-size(width);
+  justify-self: anchor-center;
+
+  /* Base styles */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.15);
+
+  /* Popover reset */
+  margin: 0;
+  border: none;
+  inset: unset;
+
+  /* Entry animation */
+  transition:
+    opacity 0.25s ease,
+    translate 0.25s ease,
+    display 0.25s allow-discrete,
+    overlay 0.25s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    translate: 0 -0.5rem;
+  }
+}
+
+@keyframes toast-exit {
+  to {
+    opacity: 0;
+    translate: 0 -2.5rem;
+  }
+}
+
+.toast--exiting {
+  animation: toast-exit 0.3s ease forwards;
+  transition: none;
+}
+
+.toast--success {
+  background-color: #81b29a;
+  color: #1a2e28;
+}
+
+.toast--error {
+  background-color: #e07a5f;
+  color: #2e1a14;
+}
+
+.toast--info {
+  background-color: #3d405b;
+  color: #f4f1de;
+}
+
+.toast__message {
+  margin: 0;
+  flex: 1;
+}
+
+.toast__dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0 0.25rem;
+  opacity: 0.7;
+  color: inherit;
+}
+
+.toast__dismiss:hover {
+  opacity: 1;
+}

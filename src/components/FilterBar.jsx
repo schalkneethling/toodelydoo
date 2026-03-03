@@ -12,29 +12,35 @@ export function FilterBar({
   activeCount,
   hasCompleted,
   onClearCompleted,
+  sortAction,
 }) {
   return (
     <div className="filter-bar">
-      <div className="filter-bar__filters">
-        {FILTERS.map(({ key, label }) => (
-          <button
-            key={key}
-            className={`filter-bar__button ${filter === key ? "filter-bar__button--active" : ""}`}
-            onClick={() => onFilterChange(key)}
-            aria-pressed={filter === key}
-          >
-            {label}
-          </button>
-        ))}
+      <div className="filter-bar__top">
+        <div className="filter-bar__filters">
+          {FILTERS.map(({ key, label }) => (
+            <button
+              key={key}
+              className={`filter-bar__button ${filter === key ? "filter-bar__button--active" : ""}`}
+              onClick={() => onFilterChange(key)}
+              aria-pressed={filter === key}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+        {sortAction}
       </div>
-      <span className="filter-bar__count">
-        {activeCount} {activeCount === 1 ? "item" : "items"} left
-      </span>
-      {hasCompleted && (
-        <button className="filter-bar__clear" onClick={onClearCompleted}>
-          Clear completed
-        </button>
-      )}
+      <div className="filter-bar__bottom">
+        <span className="filter-bar__count">
+          {activeCount} {activeCount === 1 ? "item" : "items"} left
+        </span>
+        {hasCompleted && (
+          <button className="filter-bar__clear" onClick={onClearCompleted}>
+            Clear completed
+          </button>
+        )}
+      </div>
     </div>
   );
 }
