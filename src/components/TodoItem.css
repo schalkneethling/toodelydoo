@@ -135,8 +135,6 @@
   border-radius: var(--radius-card);
   box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 0.15);
   min-inline-size: 8rem;
-  display: flex;
-  flex-direction: column;
 
   /* Entry animation — mirrors Toast pattern */
   transition:
@@ -149,6 +147,11 @@
     opacity: 0;
     translate: 0 -0.25rem;
   }
+}
+
+.todo-item__menu:popover-open {
+  display: flex;
+  flex-direction: column;
 }
 
 .todo-item__menu-item {
