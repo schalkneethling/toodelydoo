@@ -38,6 +38,10 @@ function App() {
     showToast("Sort saved!", "success");
   }
 
+  function handleCopy(text) {
+    showToast(`"${text}" copied to clipboard`, "success");
+  }
+
   return (
     <main className="app">
       <Header />
@@ -72,6 +76,7 @@ function App() {
         onToggle={toggleTodo}
         onEdit={editTodo}
         onDelete={removeTodo}
+        onCopy={handleCopy}
       />
       <Toast toast={toast} onDismiss={dismissToast} />
     </main>

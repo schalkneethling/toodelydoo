@@ -89,7 +89,7 @@
   color: inherit;
 }
 
-.todo-item__delete {
+.todo-item__menu-trigger {
   flex-shrink: 0;
   inline-size: 1.75rem;
   block-size: 1.75rem;
@@ -100,19 +100,79 @@
   border-radius: 50%;
   background: transparent;
   color: inherit;
-  font-size: 1.25rem;
-  line-height: 1;
+  cursor: pointer;
   opacity: 0;
   transition: opacity var(--transition-fast), background-color var(--transition-fast);
 }
 
-.todo-item:hover .todo-item__delete,
-.todo-item:focus-within .todo-item__delete {
+.todo-item:hover .todo-item__menu-trigger,
+.todo-item:focus-within .todo-item__menu-trigger {
   opacity: 0.6;
 }
 
-.todo-item__delete:hover {
-  opacity: 1 !important;
+.todo-item__menu-trigger:hover {
+  opacity: 1;
+  background-color: var(--color-separator);
+}
+
+.todo-item__menu {
+  /* Reset Popover API defaults */
+  margin: 0;
+  inset: unset;
+  border: none;
+  padding-block: 0.25rem;
+  padding-inline: 0.25rem;
+
+  /* Implicit anchor positioning (invoker button is the anchor) */
+  position: absolute;
+  inset-block-start: anchor(bottom);
+  inset-inline-end: anchor(right);
+  margin-block-start: 0.25rem;
+
+  /* Card appearance */
+  background-color: var(--color-surface);
+  border: 0.0625rem solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: 0 0.25rem 1rem rgb(0 0 0 / 0.15);
+  min-inline-size: 8rem;
+  display: flex;
+  flex-direction: column;
+
+  /* Entry animation — mirrors Toast pattern */
+  transition:
+    opacity 0.15s ease,
+    translate 0.15s ease,
+    display 0.15s allow-discrete,
+    overlay 0.15s allow-discrete;
+
+  @starting-style {
+    opacity: 0;
+    translate: 0 -0.25rem;
+  }
+}
+
+.todo-item__menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: 0.875rem;
+  text-align: start;
+  border-radius: calc(var(--radius-card) - 0.25rem);
+  inline-size: 100%;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.todo-item__menu-item:hover {
+  background-color: var(--color-separator);
+}
+
+.todo-item__menu-item--delete:hover {
   background-color: rgba(220, 50, 50, 0.1);
   color: #dc3232;
 }
