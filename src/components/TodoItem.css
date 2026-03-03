@@ -111,7 +111,7 @@
 }
 
 .todo-item__menu-trigger:hover {
-  opacity: 1 !important;
+  opacity: 1;
   background-color: var(--color-separator);
 }
 
